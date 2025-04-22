@@ -57,7 +57,7 @@ function App() {
   <Route
     path="/edituser/:id"
     element={
-      <ProtectedRoute>
+      <ProtectedRoute allowedRoles={["TEACHER"]}>
         <EditUser />
       </ProtectedRoute>
     }

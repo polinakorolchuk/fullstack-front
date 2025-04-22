@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 export default function ViewUser() {
@@ -16,8 +16,17 @@ export default function ViewUser() {
   }, []);
 
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/user/${id}`);
-    setUser(result.data);
+    const token = localStorage.getItem("token");
+    try {
+      const result = await axios.get(`http://localhost:8080/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,  // Добавляем токен в заголовки запроса
+        },
+      });
+      setUser(result.data);
+    } catch (error) {
+      console.error("Ошибка при загрузке пользователя:", error);
+    }
   };
 
   return (

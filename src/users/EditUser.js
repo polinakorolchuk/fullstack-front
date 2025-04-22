@@ -19,19 +19,49 @@ export default function EditUser() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  // Получаем токен из localStorage
+  const getAuthToken = () => {
+    return localStorage.getItem("token");  // Замените на то место, где ты хранишь токен
+  };
+
   useEffect(() => {
     loadUser();
   }, []);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:8080/user/${id}`, user);
-    navigate("/");
+    try {
+      await axios.put(
+        `http://localhost:8080/user/${id}`,
+        user,
+        {
+          headers: {
+            Authorization: `Bearer ${getAuthToken()}`,  // Добавляем токен в заголовки запроса
+          },
+        }
+      );
+      navigate("/"); // Переход на главную страницу после успешного обновления
+    } catch (error) {
+      console.error("Ошибка при обновлении пользователя:", error);
+      // Тут можно добавить обработку ошибок, если нужно
+    }
   };
 
   const loadUser = async () => {
-    const result = await axios.get(`http://localhost:8080/user/${id}`);
-    setUser(result.data);
+    try {
+      const result = await axios.get(
+        `http://localhost:8080/user/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${getAuthToken()}`,  // Добавляем токен в заголовки запроса
+          },
+        }
+      );
+      setUser(result.data);
+    } catch (error) {
+      console.error("Ошибка при загрузке данных пользователя:", error);
+      // Тут можно добавить обработку ошибок, если нужно
+    }
   };
 
   return (
