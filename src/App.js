@@ -2,7 +2,12 @@ import "./App.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./layout/Navbar";
 import Home from "./pages/Home";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import AddUser from "./users/AddUser";
 import EditUser from "./users/EditUser";
 import ViewUser from "./users/ViewUser";
@@ -18,48 +23,52 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+  <Route path="/" element={<Navigate to="/login" />} />
 
-          {/* 🔐 Аутентификация */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/register" element={<Register />} />
 
-          {/* 👨‍🎓 Студентское меню (только для STUDENT) */}
-          <Route
-            path="/student-menu"
-            element={
-              <ProtectedRoute allowedRoles={["STUDENT"]}>
-                <StudentMenu />
-              </ProtectedRoute>
-            }
-          />
+  <Route
+    path="/student-menu"
+    element={
+      <ProtectedRoute allowedRoles={["STUDENT"]}>
+        <StudentMenu />
+      </ProtectedRoute>
+    }
+  />
 
-          {/* 👨‍🏫 Преподавательские маршруты (по умолчанию только авторизованные) */}
-          <Route
-            path="/adduser"
-            element={
-              <ProtectedRoute>
-                <AddUser />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/edituser/:id"
-            element={
-              <ProtectedRoute>
-                <EditUser />
-              </ProtectedRoute>
-            }
-          />
+  <Route
+    path="/home"
+    element={
+      <ProtectedRoute allowedRoles={["TEACHER"]}>
+        <Home />
+      </ProtectedRoute>
+    }
+  />
 
-          {/* 👁️ Общедоступная страница */}
-          <Route path="/viewuser/:id" element={<ViewUser />} />
-        </Routes>
+  <Route
+    path="/adduser"
+    element={
+      <ProtectedRoute>
+        <AddUser />
+      </ProtectedRoute>
+    }
+  />
+  <Route
+    path="/edituser/:id"
+    element={
+      <ProtectedRoute>
+        <EditUser />
+      </ProtectedRoute>
+    }
+  />
+
+  <Route path="/viewuser/:id" element={<ViewUser />} />
+</Routes>
+
       </Router>
     </div>
   );
 }
 
 export default App;
-
-

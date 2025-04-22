@@ -8,7 +8,7 @@ export default function Login() {
     password: "",
   });
   const [error, setError] = useState("");
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { username, password } = credentials;
 
@@ -30,13 +30,13 @@ export default function Login() {
       localStorage.setItem("token", token);
       localStorage.setItem("role", role);
 
-      // Перенаправление в зависимости от роли
-      if (role === "TEACHER") {
-        navigate("/");
-      } else if (role === "STUDENT") {
+      // ✅ Перенаправление по роли
+      if (role === "STUDENT") {
         navigate("/student-menu");
+      } else if (role === "TEACHER") {
+        navigate("/home");
       } else {
-        navigate("/"); // На всякий случай
+        navigate("/login"); // На всякий случай
       }
 
       // Очистка формы
@@ -46,13 +46,13 @@ export default function Login() {
       });
     } catch (error) {
       console.error("Authentication failed", error);
-      setError("Invalid username or password");
+      setError("Неверное имя пользователя или пароль");
     }
   };
 
   return (
     <div className="container mt-5" style={{ maxWidth: "400px" }}>
-      <h2 className="mb-4">Login</h2>
+      <h2 className="mb-4">Вход</h2>
       <form onSubmit={onSubmit}>
         <div className="mb-3">
           <input
@@ -60,7 +60,7 @@ export default function Login() {
             name="username"
             value={username}
             onChange={onInputChange}
-            placeholder="Username"
+            placeholder="Имя пользователя"
             className="form-control"
             required
           />
@@ -71,14 +71,14 @@ export default function Login() {
             name="password"
             value={password}
             onChange={onInputChange}
-            placeholder="Password"
+            placeholder="Пароль"
             className="form-control"
             required
           />
         </div>
         {error && <div className="alert alert-danger">{error}</div>}
         <button type="submit" className="btn btn-primary w-100">
-          Login
+          Войти
         </button>
       </form>
     </div>

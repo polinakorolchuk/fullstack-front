@@ -10,27 +10,36 @@ export default function Home() {
   }, []);
 
   const loadUsers = async () => {
-    const token = localStorage.getItem("token"); // Получаем токен из localStorage
+    try {
+      const token = localStorage.getItem("token");
 
-    const result = await axios.get("http://localhost:8080/users", {
-      headers: {
-        Authorization: `Bearer ${token}`, // Добавляем токен в заголовок
-      },
-    });
+      const result = await axios.get("http://localhost:8080/users", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
-    setUsers(result.data);
+      console.log("Users:", result.data); // Лог данных
+      setUsers(result.data);
+    } catch (error) {
+      console.error("Ошибка при загрузке пользователей:", error); // Лог ошибки
+    }
   };
 
   const deleteUser = async (id) => {
-    const token = localStorage.getItem("token");
+    try {
+      const token = localStorage.getItem("token");
 
-    await axios.delete(`http://localhost:8080/user/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      await axios.delete(`http://localhost:8080/user/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    loadUsers();
+      loadUsers();
+    } catch (error) {
+      console.error("Ошибка при удалении пользователя:", error);
+    }
   };
 
   return (
@@ -81,3 +90,4 @@ export default function Home() {
     </div>
   );
 }
+

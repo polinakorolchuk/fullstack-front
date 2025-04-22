@@ -1,57 +1,59 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
   return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            Full Stack Application
-          </Link>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">
+          Language School
+        </Link>
 
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+        <div className="d-flex ms-auto align-items-center">
+          {!token && (
+            <>
+              <Link className="btn btn-outline-light mx-2" to="/login">
+                Login
+              </Link>
+              <Link className="btn btn-outline-light mx-2" to="/register">
+                Register
+              </Link>
+            </>
+          )}
 
-          <div className="d-flex ms-auto align-items-center">
-            {localStorage.getItem("token") && (
+          {token && role === "TEACHER" && (
+            <>
               <Link className="btn btn-outline-light mx-2" to="/adduser">
                 Add User
               </Link>
-            )}
-
-            {!localStorage.getItem("token") ? (
-              <>
-                <Link className="btn btn-outline-light mx-2" to="/login">
-                  Login
-                </Link>
-                <Link className="btn btn-outline-light mx-2" to="/register">
-                  Register
-                </Link>
-              </>
-            ) : (
               <button
                 className="btn btn-outline-light mx-2"
-                onClick={() => {
-                  localStorage.clear();
-                  window.location.href = "/";
-                }}
+                onClick={handleLogout}
               >
                 Logout
               </button>
-            )}
-          </div>
+            </>
+          )}
+
+          {token && role === "STUDENT" && (
+            <button
+              className="btn btn-outline-light mx-2"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          )}
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 }
