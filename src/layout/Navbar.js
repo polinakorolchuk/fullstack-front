@@ -15,33 +15,28 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          Language School
+          Школа иностранных языков
         </Link>
 
         <div className="d-flex ms-auto align-items-center">
           {!token && (
             <>
               <Link className="btn btn-outline-light mx-2" to="/login">
-                Login
+                Вход
               </Link>
               <Link className="btn btn-outline-light mx-2" to="/register">
-                Register
+                Регистрация
               </Link>
             </>
           )}
 
           {token && role === "TEACHER" && (
-            <>
-              <Link className="btn btn-outline-light mx-2" to="/adduser">
-                Add User
-              </Link>
-              <button
-                className="btn btn-outline-light mx-2"
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
-            </>
+            <button
+              className="btn btn-outline-light mx-2"
+              onClick={handleLogout}
+            >
+              Выход
+            </button>
           )}
 
           {token && role === "STUDENT" && (
@@ -49,7 +44,7 @@ export default function Navbar() {
               className="btn btn-outline-light mx-2"
               onClick={handleLogout}
             >
-              Logout
+              Выход
             </button>
           )}
         </div>
@@ -57,3 +52,4 @@ export default function Navbar() {
     </nav>
   );
 }
+

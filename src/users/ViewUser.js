@@ -33,29 +33,29 @@ export default function ViewUser() {
     <div className="container">
       <div className="row">
         <div className="col-md-6 offset-md-3 border rounded p-4 mt-2 shadow">
-          <h2 className="text-center m-4">User Details</h2>
+          <h2 className="text-center m-4">Карточка пользователя</h2>
 
           <div className="card">
             <div className="card-header">
-              Details of user id : {user.id}
+              Данные под порядковым номером: {user.id}
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
-                  <b>Name:</b>
+                  <b>Имя:</b>
                   {user.name}
                 </li>
                 <li className="list-group-item">
-                  <b>UserName:</b>
+                  <b>Никнейм:</b>
                   {user.username}
                 </li>
                 <li className="list-group-item">
-                  <b>Email:</b>
+                  <b>Почта:</b>
                   {user.email}
                 </li>
               </ul>
             </div>
           </div>
           <Link className="btn btn-primary my-2" to={"/"}>
-            Back to Home
+            Назад
           </Link>
         </div>
       </div>

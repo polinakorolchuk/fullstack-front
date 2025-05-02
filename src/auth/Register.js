@@ -103,7 +103,7 @@ export default function Register() {
         {/* Сообщение об успехе */}
         {success && <div className="alert alert-success">{success}</div>}
 
-        <button type="submit" className="btn btn-primary">Register</button>
+        <button type="submit" className="btn btn-primary">Регистрация</button>
       </form>
     </div>
   );

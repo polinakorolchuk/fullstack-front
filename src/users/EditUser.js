@@ -73,7 +73,7 @@ export default function EditUser() {
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="mb-3">
               <label htmlFor="Name" className="form-label">
-                Name
+                Имя
               </label>
               <input
                 type={"text"}
@@ -86,7 +86,7 @@ export default function EditUser() {
             </div>
             <div className="mb-3">
               <label htmlFor="Username" className="form-label">
-                Username
+                Никнейм
               </label>
               <input
                 type={"text"}
@@ -99,7 +99,7 @@ export default function EditUser() {
             </div>
             <div className="mb-3">
               <label htmlFor="Email" className="form-label">
-                E-mail
+                Почта
               </label>
               <input
                 type={"text"}
@@ -111,10 +111,10 @@ export default function EditUser() {
               />
             </div>
             <button type="submit" className="btn btn-outline-primary">
-              Submit
+              Подтвердить
             </button>
             <Link className="btn btn-outline-danger mx-2" to="/">
-              Cancel
+              Отменить 
             </Link>
           </form>
         </div>

@@ -34,7 +34,7 @@ export default function Login() {
       if (role === "STUDENT") {
         navigate("/student-menu");
       } else if (role === "TEACHER") {
-        navigate("/home");
+        navigate("/teacher");
       } else {
         navigate("/login"); // На всякий случай
       }
